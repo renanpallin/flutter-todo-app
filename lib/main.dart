@@ -20,40 +20,58 @@ class TodoState extends StatefulWidget {
 }
 
 class MyTodoAppState extends State<TodoState> {
-  final List<Todo> todos = [Todo('oiiiSimp', done: true), Todo('teste')];
+  final List<Todo> todos = [Todo('oiii', done: true), Todo('teste')];
   String newTodo = '';
   final TextEditingController textEditingController = TextEditingController();
 
   Iterable<Widget> _buildTodoList() {
     return todos.map((Todo t) {
       return GestureDetector(
-        onTap: () {
-          setState(() {
-            t.done = !t.done;
-          });
-        },
-        child: Text(
-          t.text,
-          style: TextStyle(
-            fontSize: 25.0,
-            decoration:
-                t.done ? TextDecoration.lineThrough : TextDecoration.none,
-          ),
-        ),
-      );
+          onTap: () {
+            setState(() {
+              t.done = !t.done;
+            });
+          },
+          child: FractionallySizedBox(
+            widthFactor: .9,
+            child: Container(
+              padding: EdgeInsets.all(5.0),
+              margin: EdgeInsets.symmetric(vertical: 4),
+              decoration: BoxDecoration(
+                border: Border.all(),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(3),
+                ),
+              ),
+              child: Text(
+                t.text,
+                textAlign: TextAlign.center
+                  ,
+                style: TextStyle(
+                  fontSize: 25.0,
+                  decoration:
+                      t.done ? TextDecoration.lineThrough : TextDecoration.none,
+                ),
+              ),
+            ),
+          ));
     });
   }
 
   Widget _buildInput() {
-    return TextField(
-      onSubmitted: (String value) {
-        setState(() {
-          todos.add(Todo(value));
-          textEditingController.clear();
-        });
-      },
-      controller: textEditingController,
-      autocorrect: false,
+    return Padding(
+      padding: EdgeInsets.all(10.0),
+      child: TextField(
+        onSubmitted: (String value) {
+          setState(() {
+            todos.add(Todo(value));
+            textEditingController.clear();
+          });
+        },
+        controller: textEditingController,
+        autocorrect: false,
+        decoration: InputDecoration(border: OutlineInputBorder()),
+      ),
     );
   }
 
