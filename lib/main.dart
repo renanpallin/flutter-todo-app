@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'src/model/Todo.dart';
+
 
 void main() => runApp(MyTodoApp());
 
@@ -92,9 +94,3 @@ class MyTodoAppState extends State<TodoState> {
   }
 }
 
-class Todo {
-  String text;
-  bool done;
-
-  Todo(this.text, {this.done = false});
-}
