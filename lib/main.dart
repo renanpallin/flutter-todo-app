@@ -9,6 +9,8 @@ class MyTodoApp extends StatelessWidget {
     return MaterialApp(
       title: "Todo!",
       home: TodoState(),
+//      theme: ThemeData(primaryColor: Colors.red, hintColor: Colors.purple),
+      theme: ThemeData.light(),
     );
   }
 }
@@ -56,7 +58,9 @@ class MyTodoAppState extends State<TodoState> {
               padding: EdgeInsets.all(5.0),
               margin: EdgeInsets.symmetric(vertical: 4),
               decoration: BoxDecoration(
-                border: Border.all(),
+                border: Border.all(
+                  color: Theme.of(context).hintColor.withOpacity(.2),
+                ),
                 borderRadius: BorderRadius.all(
                   Radius.circular(3),
                 ),
