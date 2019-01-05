@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'src/model/Todo.dart';
 
-
 void main() => runApp(MyTodoApp());
 
 class MyTodoApp extends StatelessWidget {
@@ -26,6 +25,23 @@ class MyTodoAppState extends State<TodoState> {
   String newTodo = '';
   final TextEditingController textEditingController = TextEditingController();
 
+  FocusNode myFocusNode;
+
+  @override
+  void initState() {
+    super.initState();
+    myFocusNode = FocusNode();
+
+    myFocusNode.addListener(() => print('Focus node changed!'));
+  }
+
+  @override
+  void dispose() {
+    myFocusNode.dispose();
+
+    super.dispose();
+  }
+
   Iterable<Widget> _buildTodoList() {
     return todos.map((Todo t) {
       return GestureDetector(
@@ -47,8 +63,7 @@ class MyTodoAppState extends State<TodoState> {
               ),
               child: Text(
                 t.text,
-                textAlign: TextAlign.center
-                  ,
+                textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
                   decoration:
@@ -69,9 +84,12 @@ class MyTodoAppState extends State<TodoState> {
             todos.add(Todo(value));
             textEditingController.clear();
           });
+
+          FocusScope.of(context).requestFocus(myFocusNode);
         },
         controller: textEditingController,
         autocorrect: false,
+        focusNode: myFocusNode,
         decoration: InputDecoration(border: OutlineInputBorder()),
       ),
     );
@@ -93,4 +111,3 @@ class MyTodoAppState extends State<TodoState> {
     );
   }
 }
-
